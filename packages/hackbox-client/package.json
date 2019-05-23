@@ -1,0 +1,36 @@
+{
+  "name": "hackbox-client",
+  "version": "0.0.0",
+  "description": "A Jackbox inspired framework for creating party games - client component",
+  "keywords": [
+    "realtime",
+    "framework",
+    "websocket",
+    "events",
+    "socket",
+    "client",
+    "jackbox",
+    "party",
+    "games"
+  ],
+  "author": "tomalama <tommynguyen233@gmail.com>",
+  "homepage": "https://github.com/tomalama/hackbox/tree/master/packages/hackbox-client",
+  "license": "MIT",
+  "main": "lib/.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.yarnpkg.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tomalama/hackbox/tree/master/packages/hackbox-client"
+  },
+  "scripts": {
+    "test": "echo \"Not yet implemented\" && exit 0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "hackbox",
+  "description": "A Jackbox inspired framework for creating party games",
+  "repository": "https://github.com/tomalama/hackbox",
+  "author": "tomalama <tommynguyen233@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-node": "^9.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "lerna": "^3.14.1"
+  },
+  "scripts": {
+    "publish:all": "npx lerna publish",
+    "test": "lerna run test"
+  }
+}
