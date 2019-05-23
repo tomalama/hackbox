@@ -1,6 +1,6 @@
 {
   "name": "hackbox-client",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A Jackbox inspired framework for creating party games - client component",
   "keywords": [
     "realtime",
