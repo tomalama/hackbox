@@ -1,11 +1,11 @@
-# `hackbox-server`
+# `hackbox-client`
 
 > TODO: description
 
 ## Usage
 
 ```
-const hackboxServer = require('hackbox-server');
+const hackboxClient = require('hackbox-client');
 
 // TODO: DEMONSTRATE API
 ```

@@ -16,7 +16,7 @@
   "author": "tomalama <tommynguyen233@gmail.com>",
   "homepage": "https://github.com/tomalama/hackbox/tree/master/packages/hackbox-client",
   "license": "MIT",
-  "main": "lib/.js",
+  "main": "lib/index.js",
   "directories": {
     "lib": "lib"
   },
@@ -24,7 +24,7 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "https://registry.yarnpkg.com"
+    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
