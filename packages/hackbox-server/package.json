@@ -16,7 +16,7 @@
   "author": "tomalama <tommynguyen233@gmail.com>",
   "homepage": "https://github.com/tomalama/hackbox/tree/master/packages/hackbox-server",
   "license": "MIT",
-  "main": "lib/.js",
+  "main": "lib/index.js",
   "directories": {
     "lib": "lib"
   },
@@ -24,7 +24,7 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "https://registry.yarnpkg.com"
+    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
@@ -32,5 +32,8 @@
   },
   "scripts": {
     "test": "echo \"Not yet implemented\" && exit 0"
+  },
+  "dependencies": {
+    "socket.io": "^2.2.0"
   }
 }

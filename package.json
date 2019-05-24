@@ -16,7 +16,7 @@
     "lerna": "^3.14.1"
   },
   "scripts": {
-    "publish:all": "npx lerna publish",
+    "publish:all": "lerna publish",
     "test": "lerna run test"
   }
 }

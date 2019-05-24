@@ -1,7 +1,14 @@
-'use strict';
+const attachListeners = require('./attachListeners');
 
-module.exports = hackboxServer;
+const hackbox = ({ app, port }, gameReference) => {
+  const server = require('http').Server(app);
+  const io = require('socket.io').listen(server);
 
-function hackboxServer () {
-  // TODO
-}
+  attachListeners(io, gameReference);
+
+  server.listen(port, () =>
+    console.log(`Hackbox online listening on port ${port}!`)
+  );
+};
+
+module.exports = hackbox;
