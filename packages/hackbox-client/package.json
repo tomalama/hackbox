@@ -32,5 +32,8 @@
   },
   "scripts": {
     "test": "echo \"Not yet implemented\" && exit 0"
+  },
+  "dependencies": {
+    "socket.io-client": "^2.2.0"
   }
 }
