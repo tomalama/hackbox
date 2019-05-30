@@ -1,6 +1,6 @@
 {
   "name": "hackbox-server",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A Jackbox inspired framework for creating party games - server component",
   "keywords": [
     "realtime",

@@ -1,12 +1,12 @@
 {
   "name": "hackbox-demo",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "main": "src/index.js",
   "dependencies": {
     "express": "^4.17.0",
-    "hackbox-client": "^0.0.2",
-    "hackbox-server": "^0.0.2",
+    "hackbox-client": "^0.0.3",
+    "hackbox-server": "^0.0.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
