@@ -1,7 +1,7 @@
-const UserManager = require('./userManager');
+const PlayerManager = require('./playerManager');
 const RoomManager = require('./roomManager');
 
 module.exports = {
-  UserManager,
+  PlayerManager,
   RoomManager
 };

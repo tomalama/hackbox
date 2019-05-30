@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Landing from "../Landing";
+import Host from "../Host";
 
 class App extends Component {
   render() {
@@ -9,6 +10,7 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Landing} />
+          <Route exact path="/host" component={Host} />
         </Switch>
       </BrowserRouter>
     );

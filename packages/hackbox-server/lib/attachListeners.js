@@ -1,87 +1,81 @@
-const { UserManager, RoomManager } = require('./objects');
+const { PlayerManager, RoomManager } = require('./objects');
 const { generateId } = require('./utils');
 
-const users = new UserManager();
-const rooms = new RoomManager();
+const players = new PlayerManager();
+const roomManager = new RoomManager();
 
 function attachListeners (io, gameReference) {
   io.on('connect', socket => {
-    console.log('hey');
-    socket.on('createRoom', data => {
+    socket.on('hb-createRoom', () => {
       const id = generateId();
-
       socket.join(id);
-      io.to(id).emit('roomData', { ...rooms.addRoom(id, socket.id, 8) });
+      const room = roomManager.addRoom(id, socket.id, 8);
+      io.to(id).emit('hb-roomData', room);
     });
 
-    socket.on('joinRoom', data => {
-      if (rooms.roomExists(data.roomId) === false) {
-        io.to(socket.id).emit('error', 'Room not found');
+    socket.on('hb-joinRoom', ({ roomId, name }) => {
+      if (roomManager.roomExists(roomId) === false) {
+        io.to(socket.id).emit('hb-error', 'Room not found');
         return;
       }
 
-      const room = rooms.getRoom(data.roomId);
-
-      if (room.participants.length >= room.maxParticipants) {
-        io.to(socket.id).emit('error', 'Room is full');
+      const room = roomManager.getRoom(roomId);
+      if (room.players.length >= room.maxPlayers) {
+        io.to(socket.id).emit('hb-error', 'Room is full');
         return;
       }
 
-      const userId = generateId();
+      const playerId = generateId();
+      const newPlayer = players.addPlayer(playerId, roomId, socket.id, name);
+      roomManager.addPlayer(room.roomId, newPlayer);
 
-      const newUser = users.addUser(
-        userId,
-        data.roomId,
-        socket.id,
-        data.username
-      );
-      rooms.addUser(room.roomId, newUser);
-
-      io.to(room.socketId).emit('updateData', room);
-
-      io.to(socket.id).emit('roomConnectionSuccessful', { userId });
+      io.to(room.socketId).emit('hb-onPlayerJoin', room);
+      io.to(socket.id).emit('hb-roomConnectionSuccessful', playerId);
     });
 
-    socket.on('leaveRoom', data => {});
+    socket.on('hb-leaveRoom', data => {});
 
-    socket.on('setGameType', data => {
-      const users = rooms.getUsers(data.roomId);
+    socket.on('hb-setGameType', data => {
+      const players = roomManager.getPlayers(data.roomId);
 
-      users.forEach(user => {
-        io.to(user.socketId).emit('setGameType', gameReference[data.gameType]);
+      players.forEach(player => {
+        io.to(player.socketId).emit(
+          'hb-setGameType',
+          gameReference[data.gameType]
+        );
       });
     });
 
-    socket.on('startGame', data => {
-      const users = rooms.getUsers(data.roomId);
+    socket.on('hb-startGame', data => {
+      const players = roomManager.getPlayers(data.roomId);
 
-      users.forEach(user => {
-        io.to(user.socketId).emit('gameStart', data.gameType);
+      players.forEach(player => {
+        io.to(player.socketId).emit('hb-gameStart', data.gameType);
       });
 
       setTimeout(() => {
-        const users = rooms.getUsers(data.roomId);
+        const players = roomManager.getPlayers(data.roomId);
 
-        users.forEach(user => {
-          io.to(user.socketId).emit('gameOver');
+        players.forEach(player => {
+          io.to(player.socketId).emit('hb-gameOver');
         });
       }, gameReference[data.gameType].gameLength);
     });
 
-    socket.on('getUpdatedData', data => {
-      const room = rooms.getRoom(data.roomId);
+    socket.on('hb-getUpdatedData', data => {
+      const room = roomManager.getRoom(data.roomId);
 
-      io.to(room.socketId).emit('update', room);
+      io.to(room.socketId).emit('hb-update', room);
     });
 
-    socket.on('userAction', data => {
-      const room = rooms.getRoom(data.roomId);
+    socket.on('hb-playerAction', data => {
+      const room = roomManager.getRoom(data.roomId);
 
       switch (data.gameType) {
         case 'squatRace':
           if (data.actionType === 'squat') {
-            rooms.addToUserScore(data.roomId, data.userId, 1);
-            io.to(room.socketId).emit('updateData', room);
+            roomManager.addToPlayerScore(data.roomId, data.playerId, 1);
+            io.to(room.socketId).emit('hb-updateData', room);
           }
           break;
         default:
@@ -89,22 +83,26 @@ function attachListeners (io, gameReference) {
       }
     });
 
-    socket.on('userStatusUpdate', data => {
-      const room = rooms.getRoom(data.roomId);
+    socket.on('hb-playerStatusUpdate', data => {
+      const room = roomManager.getRoom(data.roomId);
 
-      rooms.updateUserStatus(data.roomId, data.userId, data.userIsReady);
+      roomManager.updatePlayerStatus(
+        data.roomId,
+        data.playerId,
+        data.playerIsReady
+      );
 
-      if (rooms.allReady(data.roomId)) {
-        io.to(room.socketId).emit('playersReady', true);
+      if (roomManager.allReady(data.roomId)) {
+        io.to(room.socketId).emit('hb-playersReady', true);
       } else {
-        io.to(room.socketId).emit('playersReady', false);
+        io.to(room.socketId).emit('hb-playersReady', false);
       }
 
-      io.to(room.socketId).emit('updateData', room);
+      io.to(room.socketId).emit('hb-updateData', room);
     });
   });
 
-  io.on('disconnect', socket => {});
+  io.on('hb-disconnect', socket => {});
 }
 
 module.exports = attachListeners;

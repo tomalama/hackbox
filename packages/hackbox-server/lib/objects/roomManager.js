@@ -3,8 +3,8 @@ class RoomManager {
     this.rooms = [];
   }
 
-  addRoom (roomId, socketId, maxParticipants) {
-    const room = { roomId, socketId, maxParticipants, participants: [] };
+  addRoom (roomId, socketId, maxPlayers) {
+    const room = { roomId, socketId, maxPlayers, players: [] };
     this.rooms.push(room);
     return room;
   }
@@ -23,48 +23,52 @@ class RoomManager {
     return this.rooms.filter(room => room.roomId === id)[0];
   }
 
-  addUser (roomId, user) {
+  addPlayer (roomId, player) {
     const room = this.getRoom(roomId);
 
-    if (room.participants.length >= room.maxParticipants) {
+    if (room.players.length >= room.maxPlayers) {
       return false;
     }
 
-    room.participants.push(user);
+    room.players.push(player);
   }
 
-  removeUser (roomId, userId) {
+  removePlayer (roomId, playerId) {
     const room = this.getRoom(roomId);
 
-    room.participants.filter(user => user.userId !== userId);
+    room.players.filter(player => player.playerId !== playerId);
   }
 
-  updateUserStatus (roomId, userId, userIsReady) {
+  updatePlayerStatus (roomId, playerId, playerIsReady) {
     const room = this.getRoom(roomId);
-    const user = room.participants.filter(user => user.userId === userId)[0];
+    const player = room.players.filter(
+      player => player.playerId === playerId
+    )[0];
 
-    if (user == null) {
+    if (player == null) {
       return false;
     }
 
-    user.isReady = userIsReady;
+    player.isReady = playerIsReady;
   }
 
-  addToUserScore (roomId, userId, amount) {
+  addToPlayerScore (roomId, playerId, amount) {
     const room = this.getRoom(roomId);
-    const user = room.participants.filter(user => user.userId === userId)[0];
+    const player = room.players.filter(
+      player => player.playerId === playerId
+    )[0];
 
-    if (user == null) {
+    if (player == null) {
       return false;
     }
 
-    user.score += amount;
+    player.score += amount;
   }
 
   allReady (roomId) {
     const room = this.getRoom(roomId);
-    room.participants.forEach(user => {
-      if (user.isReady === false) {
+    room.players.forEach(player => {
+      if (player.isReady === false) {
         return false;
       }
     });

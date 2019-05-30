@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "dependencies": {
     "express": "^4.17.0",
+    "hackbox-client": "^0.0.2",
     "hackbox-server": "^0.0.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -17,8 +18,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "postinstall": "yarn link hackbox-server",
-    "start:server": "node src/server"
+    "postinstall": "yarn link hackbox-server & yarn link hackbox-client",
+    "start:server": "nodemon src/server"
   },
   "eslintConfig": {
     "extends": "react-app"
