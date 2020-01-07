@@ -1,0 +1,22 @@
+.Boggle {
+  .Boggle__Wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .Boggle__Grid {
+      width: 400px;
+      height: 400px;
+
+      div {
+        float: left;
+        height: 25%;
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+      }
+    }
+  }
+}

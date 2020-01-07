@@ -22,23 +22,35 @@ const hackboxClient = async url => {
     });
   };
 
+  const startGame = ({ roomId, gameType }) => {
+    socket.emit('hb-startGame', { roomId, gameType });
+  };
+
   /**
    * Player methods
    */
 
-  const joinRoom = (roomId, name) => {
+  const joinRoom = ({ roomId, playerName }) => {
     return new Promise(resolve => {
-      socket.emit('hb-joinRoom', { roomId, name });
+      socket.emit('hb-joinRoom', { roomId, playerName });
       socket.on('hb-roomConnectionSuccessful', playerId => {
         resolve(playerId);
       });
     });
   };
 
+  const onStartGame = cb => {
+    socket.on('hb-gameStart', gameType => {
+      cb(gameType);
+    });
+  };
+
   return {
     createRoom,
     onPlayerJoin,
-    joinRoom
+    startGame,
+    joinRoom,
+    onStartGame
   };
 };
 

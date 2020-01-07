@@ -3,9 +3,9 @@ class PlayerManager {
     this.players = [];
   }
 
-  addPlayer (playerId, roomId, socketId, name) {
+  addPlayer ({ id, roomId, socketId, name }) {
     const player = {
-      playerId,
+      id,
       roomId,
       socketId,
       name,
@@ -17,19 +17,17 @@ class PlayerManager {
   }
 
   removePlayer (id) {
-    const removedPlayer = this.players.filter(
-      player => player.playerId === id
-    )[0];
+    const removedPlayer = this.players.find(player => player.id === id);
 
     if (removedPlayer) {
-      this.players = this.players.filter(player => player.playerId !== id);
+      this.players = this.players.filter(player => player.id !== id);
     }
 
     return removedPlayer;
   }
 
   getPlayer (id) {
-    return this.players.filter(player => player.playerId === id)[0];
+    return this.players.find(player => player.id === id);
   }
 }
 

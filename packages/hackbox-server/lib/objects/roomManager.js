@@ -3,24 +3,24 @@ class RoomManager {
     this.rooms = [];
   }
 
-  addRoom (roomId, socketId, maxPlayers) {
-    const room = { roomId, socketId, maxPlayers, players: [] };
+  addRoom (id, socketId, maxPlayers) {
+    const room = { id, socketId, maxPlayers, players: [] };
     this.rooms.push(room);
     return room;
   }
 
   removeRoom (id) {
-    const removedRoom = this.rooms.filter(room => room.roomId === id)[0];
+    const removedRoom = this.rooms.filter(room => room.id === id)[0];
 
     if (removedRoom) {
-      this.room = this.rooms.filter(room => room.roomId !== id);
+      this.room = this.rooms.filter(room => room.id !== id);
     }
 
     return removedRoom;
   }
 
   getRoom (id) {
-    return this.rooms.filter(room => room.roomId === id)[0];
+    return this.rooms.find(room => room.id === id);
   }
 
   addPlayer (roomId, player) {
@@ -37,6 +37,11 @@ class RoomManager {
     const room = this.getRoom(roomId);
 
     room.players.filter(player => player.playerId !== playerId);
+  }
+
+  getPlayers (roomId) {
+    const room = this.getRoom(roomId);
+    return room.players;
   }
 
   updatePlayerStatus (roomId, playerId, playerIsReady) {
@@ -77,9 +82,9 @@ class RoomManager {
   }
 
   roomExists (id) {
-    const found = this.rooms.filter(room => room.roomId === id);
+    const found = this.rooms.find(room => room.id === id);
 
-    if (found.length > 0) {
+    if (found) {
       return true;
     }
 
