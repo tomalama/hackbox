@@ -7,7 +7,7 @@
     "express": "^4.17.0",
     "hackbox-client": "^0.0.3",
     "hackbox-server": "^0.0.3",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
