@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// const { PlayerManager, RoomManager } = require('./objects');
-var generateId = require('./utils').generateId;
+exports.attachListeners = void 0;
+var utils_1 = require("./utils");
 var playerManager_1 = require("./playerManager");
 var roomManager_1 = require("./roomManager");
 var players = new playerManager_1.PlayerManager();
@@ -12,7 +12,7 @@ function attachListeners(io, gameReference) {
          * Room events
          */
         socket.on('hb-createRoom', function () {
-            var id = generateId();
+            var id = utils_1.generateId();
             socket.join(id);
             var room = roomManager.addRoom(id, socket.id, 8);
             io.to(id).emit('hb-roomData', room);
@@ -53,7 +53,7 @@ function attachListeners(io, gameReference) {
                 io.to(socket.id).emit('hb-error', 'Room is full');
                 return;
             }
-            var playerId = generateId();
+            var playerId = utils_1.generateId();
             var newPlayer = players.addPlayer({ id: playerId, roomId: roomId, socketId: socket.id, name: playerName });
             roomManager.addPlayer(roomId, newPlayer);
             io.to(room.socketId).emit('hb-onPlayerJoin', room);
@@ -91,4 +91,4 @@ function attachListeners(io, gameReference) {
     });
     io.on('hb-disconnect', function (socket) { });
 }
-module.exports = attachListeners;
+exports.attachListeners = attachListeners;

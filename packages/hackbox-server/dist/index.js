@@ -20,14 +20,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.hackbox = void 0;
-var attachListeners = require('./attachListeners');
 var socketio = __importStar(require("socket.io"));
+var attachListeners_1 = require("./attachListeners");
 var hackbox = function (_a, gameReference) {
     var app = _a.app, port = _a.port, _b = _a.isSecure, isSecure = _b === void 0 ? false : _b;
     var server = require(isSecure ? 'https' : 'http').Server(app);
     // const io = require('socket.io').listen(server);
     var io = socketio.listen(server);
-    attachListeners(io, gameReference);
+    attachListeners_1.attachListeners(io, gameReference);
     server.listen(port, function () { return console.log("Hackbox online on port " + port + "!"); });
 };
 exports.hackbox = hackbox;

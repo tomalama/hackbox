@@ -1,12 +1,11 @@
-// const { PlayerManager, RoomManager } = require('./objects');
-const { generateId } = require('./utils');
+import { generateId }  from './utils';
 import { PlayerManager } from './playerManager';
 import { RoomManager } from './roomManager';
 
 const players = new PlayerManager();
 const roomManager = new RoomManager();
 
-function attachListeners (io, gameReference) {
+export function attachListeners (io, gameReference) {
   io.on('connect', socket => {
     /**
      * Room events
@@ -112,5 +111,3 @@ function attachListeners (io, gameReference) {
 
   io.on('hb-disconnect', socket => {});
 }
-
-module.exports = attachListeners;
