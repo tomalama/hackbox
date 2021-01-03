@@ -1,7 +1,7 @@
-const express = require('express');
-const path = require('path');
-const hackbox = require('hackbox-server');
-const gameReference = require('./gameReference');
+import express from 'express';
+import path from 'path';
+import { hackbox } from '../../../hackbox-server/dist/index.js';
+import { gameReference } from './gameReference.js';
 
 const port = process.env.PORT || 8080;
 const app = express();
