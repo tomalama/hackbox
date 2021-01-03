@@ -19,6 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.hackbox = void 0;
 var attachListeners = require('./attachListeners');
 var socketio = __importStar(require("socket.io"));
 var hackbox = function (_a, gameReference) {
@@ -29,4 +30,4 @@ var hackbox = function (_a, gameReference) {
     attachListeners(io, gameReference);
     server.listen(port, function () { return console.log("Hackbox online on port " + port + "!"); });
 };
-module.exports = hackbox;
+exports.hackbox = hackbox;

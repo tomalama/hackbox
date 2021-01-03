@@ -18,3 +18,4 @@ export declare class PlayerManager {
     removePlayer(id: any): Player;
     getPlayer(id: any): Player;
 }
+//# sourceMappingURL=playerManager.d.ts.map

@@ -13,3 +13,4 @@ export declare class RoomManager {
     allReady(roomId: any): boolean;
     roomExists(id: any): boolean;
 }
+//# sourceMappingURL=roomManager.d.ts.map

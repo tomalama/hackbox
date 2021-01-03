@@ -12,3 +12,4 @@ export declare class Room {
     maxPlayers: number;
     players: Player[];
 }
+//# sourceMappingURL=model.d.ts.map
