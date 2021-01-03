@@ -1,11 +1,14 @@
+import socketio from 'socket.io';
+
 import { generateId }  from './utils';
 import { PlayerManager } from './playerManager';
 import { RoomManager } from './roomManager';
+import { GameReference } from './model';
 
 const players = new PlayerManager();
 const roomManager = new RoomManager();
 
-export function attachListeners (io, gameReference) {
+export function attachListeners (io: socketio.Server, gameReference: GameReference): void {
   io.on('connect', socket => {
     /**
      * Room events
@@ -60,7 +63,7 @@ export function attachListeners (io, gameReference) {
       }
 
       const playerId = generateId();
-      const newPlayer = players.addPlayer({ id: playerId, roomId, socketId: socket.id, name: playerName });
+      const newPlayer = players.addPlayer(playerId, roomId, socket.id, playerName);
       roomManager.addPlayer(roomId, newPlayer);
 
       io.to(room.socketId).emit('hb-onPlayerJoin', room);

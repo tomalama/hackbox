@@ -1,20 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlayerManager = void 0;
+var model_1 = require("./model");
 var PlayerManager = /** @class */ (function () {
     function PlayerManager() {
         this.players = [];
     }
-    PlayerManager.prototype.addPlayer = function (_a) {
-        var id = _a.id, roomId = _a.roomId, socketId = _a.socketId, name = _a.name;
-        var player = {
-            id: id,
-            roomId: roomId,
-            socketId: socketId,
-            name: name,
-            isReady: false,
-            score: 0
-        };
+    PlayerManager.prototype.addPlayer = function (playerId, roomId, socketId, name) {
+        var player = new model_1.Player();
+        player.id = playerId;
+        player.roomId = roomId;
+        player.socketId = socketId;
+        player.name = name;
+        player.isReady = false;
+        player.score = 0;
         this.players.push(player);
         return player;
     };

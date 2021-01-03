@@ -1,11 +1,11 @@
 import express from 'express';
-import * as socketio from 'socket.io';
+import socketio from 'socket.io';
 
 import { attachListeners } from './attachListeners';
+import { GameReference } from './model';
 
-export const hackbox = ({ app, port, isSecure = false }: { app: express.Express, port: string | number, isSecure: boolean }, gameReference) => {
+export const hackbox = ({ app, port, isSecure = false }: { app: express.Express, port: string | number, isSecure: boolean }, gameReference: GameReference) => {
   const server = require(isSecure ? 'https' : 'http').Server(app);
-  // const io = require('socket.io').listen(server);
   const io = socketio.listen(server);
 
   attachListeners(io, gameReference);

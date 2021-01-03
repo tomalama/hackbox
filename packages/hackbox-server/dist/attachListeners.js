@@ -54,7 +54,7 @@ function attachListeners(io, gameReference) {
                 return;
             }
             var playerId = utils_1.generateId();
-            var newPlayer = players.addPlayer({ id: playerId, roomId: roomId, socketId: socket.id, name: playerName });
+            var newPlayer = players.addPlayer(playerId, roomId, socket.id, playerName);
             roomManager.addPlayer(roomId, newPlayer);
             io.to(room.socketId).emit('hb-onPlayerJoin', room);
             io.to(socket.id).emit('hb-roomConnectionSuccessful', playerId);

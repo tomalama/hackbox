@@ -1,4 +1,5 @@
 export declare class Player {
+    constructor();
     id: string;
     roomId: string;
     socketId: string;
@@ -11,5 +12,19 @@ export declare class Room {
     socketId: string;
     maxPlayers: number;
     players: Player[];
+}
+export interface GameReference {
+    gamesTypes: string[];
+    demo: GameReferenceDemo;
+    actions: GameReferenceAction[];
+}
+export interface GameReferenceDemo {
+    gameLength: number;
+    validActions: number[];
+    description: string;
+}
+export interface GameReferenceAction {
+    actionName: string;
+    threshold: number;
 }
 //# sourceMappingURL=model.d.ts.map

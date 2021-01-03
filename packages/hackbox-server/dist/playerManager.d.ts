@@ -2,19 +2,7 @@ import { Player } from './model';
 export declare class PlayerManager {
     players: Player[];
     constructor();
-    addPlayer({ id, roomId, socketId, name }: {
-        id: any;
-        roomId: any;
-        socketId: any;
-        name: any;
-    }): {
-        id: any;
-        roomId: any;
-        socketId: any;
-        name: any;
-        isReady: boolean;
-        score: number;
-    };
+    addPlayer(playerId: string, roomId: string, socketId: string, name: string): Player;
     removePlayer(id: any): Player;
     getPlayer(id: any): Player;
 }

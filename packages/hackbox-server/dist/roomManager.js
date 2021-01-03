@@ -1,12 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RoomManager = void 0;
+var model_1 = require("./model");
 var RoomManager = /** @class */ (function () {
     function RoomManager() {
         this.rooms = [];
     }
     RoomManager.prototype.addRoom = function (id, socketId, maxPlayers) {
-        var room = { id: id, socketId: socketId, maxPlayers: maxPlayers, players: [] };
+        var room = new model_1.Room();
+        room.id = id;
+        room.socketId = socketId;
+        room.maxPlayers = maxPlayers;
+        room.players = [];
         this.rooms.push(room);
         return room;
     };
@@ -26,10 +31,12 @@ var RoomManager = /** @class */ (function () {
             return false;
         }
         room.players.push(player);
+        return true;
     };
     RoomManager.prototype.removePlayer = function (roomId, playerId) {
         var room = this.getRoom(roomId);
-        room.players.filter(function (player) { return player.id !== playerId; });
+        //TODO: check if succesfully removed and return true/false
+        room === null || room === void 0 ? void 0 : room.players.filter(function (player) { return player.id !== playerId; });
     };
     RoomManager.prototype.getPlayers = function (roomId) {
         var room = this.getRoom(roomId);
@@ -42,6 +49,7 @@ var RoomManager = /** @class */ (function () {
             return false;
         }
         player.isReady = playerIsReady;
+        return true;
     };
     RoomManager.prototype.addToPlayerScore = function (roomId, playerId, amount) {
         var room = this.getRoom(roomId);
@@ -50,6 +58,7 @@ var RoomManager = /** @class */ (function () {
             return false;
         }
         player.score += amount;
+        return true;
     };
     RoomManager.prototype.allReady = function (roomId) {
         var room = this.getRoom(roomId);

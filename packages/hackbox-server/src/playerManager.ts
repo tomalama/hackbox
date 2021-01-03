@@ -7,20 +7,20 @@ export class PlayerManager {
     this.players = [];
   }
 
-  addPlayer ({ id, roomId, socketId, name }) {
-    const player = {
-      id,
-      roomId,
-      socketId,
-      name,
-      isReady: false,
-      score: 0
-    };
+  addPlayer(playerId: string, roomId: string, socketId: string, name: string): Player {
+    const player = new Player();
+    player.id = playerId;
+    player.roomId = roomId;
+    player.socketId = socketId;
+    player.name = name;
+    player.isReady = false;
+    player.score = 0;
+
     this.players.push(player);
     return player;
   }
 
-  removePlayer (id) {
+  removePlayer(id): Player {
     const removedPlayer = this.players.find(player => player.id === id);
 
     if (removedPlayer) {
@@ -30,7 +30,7 @@ export class PlayerManager {
     return removedPlayer;
   }
 
-  getPlayer (id) {
+  getPlayer(id): Player {
     return this.players.find(player => player.id === id);
   }
 }
