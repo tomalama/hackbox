@@ -1,5 +1,7 @@
-const { PlayerManager, RoomManager } = require('./objects');
+// const { PlayerManager, RoomManager } = require('./objects');
 const { generateId } = require('./utils');
+import { PlayerManager } from './playerManager';
+import { RoomManager } from './roomManager';
 
 const players = new PlayerManager();
 const roomManager = new RoomManager();

@@ -35,5 +35,8 @@
   },
   "dependencies": {
     "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.3"
   }
 }

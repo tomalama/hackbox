@@ -1,10 +1,14 @@
-class RoomManager {
+import { Player, Room} from './model';
+
+export class RoomManager {
+  rooms: Room[];
+
   constructor () {
     this.rooms = [];
   }
 
   addRoom (id, socketId, maxPlayers) {
-    const room = { id, socketId, maxPlayers, players: [] };
+    const room: Room = { id, socketId, maxPlayers, players: [] };
     this.rooms.push(room);
     return room;
   }
@@ -13,7 +17,7 @@ class RoomManager {
     const removedRoom = this.rooms.filter(room => room.id === id)[0];
 
     if (removedRoom) {
-      this.room = this.rooms.filter(room => room.id !== id);
+      this.rooms = this.rooms.filter(room => room.id !== id);
     }
 
     return removedRoom;
@@ -36,7 +40,7 @@ class RoomManager {
   removePlayer (roomId, playerId) {
     const room = this.getRoom(roomId);
 
-    room.players.filter(player => player.playerId !== playerId);
+    room.players.filter(player => player.id !== playerId);
   }
 
   getPlayers (roomId) {
@@ -47,7 +51,7 @@ class RoomManager {
   updatePlayerStatus (roomId, playerId, playerIsReady) {
     const room = this.getRoom(roomId);
     const player = room.players.filter(
-      player => player.playerId === playerId
+      player => player.id === playerId
     )[0];
 
     if (player == null) {
@@ -60,7 +64,7 @@ class RoomManager {
   addToPlayerScore (roomId, playerId, amount) {
     const room = this.getRoom(roomId);
     const player = room.players.filter(
-      player => player.playerId === playerId
+      player => player.id === playerId
     )[0];
 
     if (player == null) {
@@ -91,5 +95,3 @@ class RoomManager {
     return false;
   }
 }
-
-module.exports = RoomManager;

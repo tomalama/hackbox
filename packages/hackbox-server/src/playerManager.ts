@@ -1,4 +1,8 @@
-class PlayerManager {
+import { Player } from './model';
+
+export class PlayerManager {
+  players: Player[];
+
   constructor () {
     this.players = [];
   }
@@ -30,5 +34,3 @@ class PlayerManager {
     return this.players.find(player => player.id === id);
   }
 }
-
-module.exports = PlayerManager;
