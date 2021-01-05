@@ -1,14 +1,14 @@
-export declare const hackboxClient: (url: any) => Promise<{
+export declare const hackboxClient: (url: string) => Promise<{
     createRoom: () => Promise<unknown>;
-    onPlayerJoin: (cb: any) => void;
+    onPlayerJoin: (callbackFn: Function) => void;
     startGame: ({ roomId, gameType }: {
-        roomId: any;
-        gameType: any;
+        roomId: string;
+        gameType: string;
     }) => void;
     joinRoom: ({ roomId, playerName }: {
-        roomId: any;
-        playerName: any;
+        roomId: string;
+        playerName: string;
     }) => Promise<unknown>;
-    onStartGame: (cb: any) => void;
+    onStartGame: (callbackFn: Function) => void;
 }>;
 //# sourceMappingURL=index.d.ts.map

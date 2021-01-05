@@ -1,6 +1,7 @@
 const io = require('socket.io-client');
+import { Room } from '../../hackbox-server/dist/model'; //TODO: import from non-local source
 
-export const hackboxClient = async url => {
+export const hackboxClient = async (url: string) => {
   const socket = await io.connect(url);
 
   /**
@@ -10,19 +11,19 @@ export const hackboxClient = async url => {
   const createRoom = () => {
     return new Promise(resolve => {
       socket.emit('hb-createRoom');
-      socket.on('hb-roomData', data => {
+      socket.on('hb-roomData', (data: any) => {
         resolve(data);
       });
     });
   };
 
-  const onPlayerJoin = cb => {
-    socket.on('hb-onPlayerJoin', room => {
-      cb(room);
+  const onPlayerJoin = (callbackFn: Function) => {
+    socket.on('hb-onPlayerJoin', (room: Room) => {
+      callbackFn(room);
     });
   };
 
-  const startGame = ({ roomId, gameType }) => {
+  const startGame = ({ roomId, gameType }: {roomId: string, gameType: string}) => {
     socket.emit('hb-startGame', { roomId, gameType });
   };
 
@@ -30,18 +31,18 @@ export const hackboxClient = async url => {
    * Player methods
    */
 
-  const joinRoom = ({ roomId, playerName }) => {
+  const joinRoom = ({ roomId, playerName }: {roomId: string, playerName: string}) => {
     return new Promise(resolve => {
       socket.emit('hb-joinRoom', { roomId, playerName });
-      socket.on('hb-roomConnectionSuccessful', playerId => {
+      socket.on('hb-roomConnectionSuccessful', (playerId: string) => {
         resolve(playerId);
       });
     });
   };
 
-  const onStartGame = cb => {
-    socket.on('hb-gameStart', gameType => {
-      cb(gameType);
+  const onStartGame = (callbackFn: Function) => {
+    socket.on('hb-gameStart', (gameType: string) => {
+      callbackFn(gameType);
     });
   };
 

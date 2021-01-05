@@ -53,9 +53,9 @@ var hackboxClient = function (url) { return __awaiter(void 0, void 0, void 0, fu
                         });
                     });
                 };
-                onPlayerJoin = function (cb) {
+                onPlayerJoin = function (callbackFn) {
                     socket.on('hb-onPlayerJoin', function (room) {
-                        cb(room);
+                        callbackFn(room);
                     });
                 };
                 startGame = function (_a) {
@@ -71,9 +71,9 @@ var hackboxClient = function (url) { return __awaiter(void 0, void 0, void 0, fu
                         });
                     });
                 };
-                onStartGame = function (cb) {
+                onStartGame = function (callbackFn) {
                     socket.on('hb-gameStart', function (gameType) {
-                        cb(gameType);
+                        callbackFn(gameType);
                     });
                 };
                 return [2 /*return*/, {
