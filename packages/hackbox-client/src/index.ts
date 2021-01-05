@@ -1,6 +1,6 @@
 const io = require('socket.io-client');
 
-const hackboxClient = async url => {
+export const hackboxClient = async url => {
   const socket = await io.connect(url);
 
   /**
@@ -53,5 +53,3 @@ const hackboxClient = async url => {
     onStartGame
   };
 };
-
-module.exports = hackboxClient;
