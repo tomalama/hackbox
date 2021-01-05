@@ -1,36 +1,40 @@
-const io = require('socket.io-client');
+import * as io from 'socket.io-client';
 import { Room } from '../../hackbox-server/dist/model'; //TODO: import from non-local source
 
-export const hackboxClient = async (url: string) => {
-  const socket = await io.connect(url);
+export class hackboxClient {
+  socket: SocketIOClient.Socket;
+
+  constructor(url: string) {
+    this.socket = io.connect(url);
+  }
 
   /**
    * Room methods
    */
 
-  const createRoom = () => {
+  createRoom(): Promise<Room> {
     return new Promise<Room>(resolve => {
-      socket.emit('hb-createRoom');
-      socket.on('hb-roomData', (room: Room) => {
+      this.socket.emit('hb-createRoom');
+      this.socket.on('hb-roomData', (room: Room) => {
         resolve(room);
       });
     });
   };
 
-  const onPlayerJoin = (callbackFn: Function) => {
-    socket.on('hb-onPlayerJoin', (room: Room) => {
+  onPlayerJoin(callbackFn: Function): void {
+    this.socket.on('hb-onPlayerJoin', (room: Room) => {
       callbackFn(room);
     });
   };
 
-  const startGame = ({ roomId, gameType }: {roomId: string, gameType: string}) => {
-    socket.emit('hb-startGame', { roomId, gameType });
+  startGame({ roomId, gameType }: {roomId: string, gameType: string}): void {
+    this.socket.emit('hb-startGame', { roomId, gameType });
   };
 
-  const getRooms = () => {
+  getRooms(): Promise<Room[]> {
     return new Promise<Room[]>(resolve => {
-      socket.emit('hb-getRooms');
-      socket.on('hb-roomsData', (rooms: Room[]) => {
+      this.socket.emit('hb-getRooms');
+      this.socket.on('hb-roomsData', (rooms: Room[]) => {
         resolve(rooms);
       });
     });
@@ -40,27 +44,18 @@ export const hackboxClient = async (url: string) => {
    * Player methods
    */
 
-  const joinRoom = ({ roomId, playerName }: {roomId: string, playerName: string}) => {
+  joinRoom({ roomId, playerName }: {roomId: string, playerName: string}): Promise<string> {
     return new Promise<string>(resolve => {
-      socket.emit('hb-joinRoom', { roomId, playerName });
-      socket.on('hb-roomConnectionSuccessful', (playerId: string) => {
+      this.socket.emit('hb-joinRoom', { roomId, playerName });
+      this.socket.on('hb-roomConnectionSuccessful', (playerId: string) => {
         resolve(playerId);
       });
     });
   };
 
-  const onStartGame = (callbackFn: Function) => {
-    socket.on('hb-gameStart', (gameType: string) => {
+  onStartGame(callbackFn: Function): void {
+    this.socket.on('hb-gameStart', (gameType: string) => {
       callbackFn(gameType);
     });
-  };
-
-  return {
-    createRoom,
-    getRooms,
-    onPlayerJoin,
-    startGame,
-    joinRoom,
-    onStartGame
   };
 };
