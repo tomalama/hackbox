@@ -32,6 +32,10 @@ export class RoomManager {
     return this.rooms.find(room => room.id === id);
   }
 
+  getRooms(): Room[] {
+    return this.rooms;
+  }
+
   addPlayer(roomId, player): boolean {
     const room = this.getRoom(roomId);
 

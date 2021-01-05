@@ -9,10 +9,10 @@ export const hackboxClient = async (url: string) => {
    */
 
   const createRoom = () => {
-    return new Promise(resolve => {
+    return new Promise<Room>(resolve => {
       socket.emit('hb-createRoom');
-      socket.on('hb-roomData', (data: any) => {
-        resolve(data);
+      socket.on('hb-roomData', (room: Room) => {
+        resolve(room);
       });
     });
   };
@@ -27,12 +27,21 @@ export const hackboxClient = async (url: string) => {
     socket.emit('hb-startGame', { roomId, gameType });
   };
 
+  const getRooms = () => {
+    return new Promise<Room[]>(resolve => {
+      socket.emit('hb-getRooms');
+      socket.on('hb-roomsData', (rooms: Room[]) => {
+        resolve(rooms);
+      });
+    });
+  }
+
   /**
    * Player methods
    */
 
   const joinRoom = ({ roomId, playerName }: {roomId: string, playerName: string}) => {
-    return new Promise(resolve => {
+    return new Promise<string>(resolve => {
       socket.emit('hb-joinRoom', { roomId, playerName });
       socket.on('hb-roomConnectionSuccessful', (playerId: string) => {
         resolve(playerId);
@@ -48,6 +57,7 @@ export const hackboxClient = async (url: string) => {
 
   return {
     createRoom,
+    getRooms,
     onPlayerJoin,
     startGame,
     joinRoom,

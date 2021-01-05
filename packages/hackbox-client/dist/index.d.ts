@@ -1,5 +1,7 @@
+import { Room } from '../../hackbox-server/dist/model';
 export declare const hackboxClient: (url: string) => Promise<{
-    createRoom: () => Promise<unknown>;
+    createRoom: () => Promise<Room>;
+    getRooms: () => Promise<Room[]>;
     onPlayerJoin: (callbackFn: Function) => void;
     startGame: ({ roomId, gameType }: {
         roomId: string;
@@ -8,7 +10,7 @@ export declare const hackboxClient: (url: string) => Promise<{
     joinRoom: ({ roomId, playerName }: {
         roomId: string;
         playerName: string;
-    }) => Promise<unknown>;
+    }) => Promise<string>;
     onStartGame: (callbackFn: Function) => void;
 }>;
 //# sourceMappingURL=index.d.ts.map

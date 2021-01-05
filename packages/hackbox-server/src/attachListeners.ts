@@ -47,6 +47,11 @@ export function attachListeners (io: socketio.Server, gameReference: GameReferen
       }, gameReference[gameType].gameLength);
     });
 
+    socket.on('hb-getRooms', () => {
+      const rooms = roomManager.getRooms();
+      io.to(socket.id).emit('hb-roomsData', rooms);
+    });
+
     /**
    * Player events
    */

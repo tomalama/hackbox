@@ -39,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.hackboxClient = void 0;
 var io = require('socket.io-client');
 var hackboxClient = function (url) { return __awaiter(void 0, void 0, void 0, function () {
-    var socket, createRoom, onPlayerJoin, startGame, joinRoom, onStartGame;
+    var socket, createRoom, onPlayerJoin, startGame, getRooms, joinRoom, onStartGame;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, io.connect(url)];
@@ -48,8 +48,8 @@ var hackboxClient = function (url) { return __awaiter(void 0, void 0, void 0, fu
                 createRoom = function () {
                     return new Promise(function (resolve) {
                         socket.emit('hb-createRoom');
-                        socket.on('hb-roomData', function (data) {
-                            resolve(data);
+                        socket.on('hb-roomData', function (room) {
+                            resolve(room);
                         });
                     });
                 };
@@ -61,6 +61,14 @@ var hackboxClient = function (url) { return __awaiter(void 0, void 0, void 0, fu
                 startGame = function (_a) {
                     var roomId = _a.roomId, gameType = _a.gameType;
                     socket.emit('hb-startGame', { roomId: roomId, gameType: gameType });
+                };
+                getRooms = function () {
+                    return new Promise(function (resolve) {
+                        socket.emit('hb-getRooms');
+                        socket.on('hb-roomsData', function (rooms) {
+                            resolve(rooms);
+                        });
+                    });
                 };
                 joinRoom = function (_a) {
                     var roomId = _a.roomId, playerName = _a.playerName;
@@ -78,6 +86,7 @@ var hackboxClient = function (url) { return __awaiter(void 0, void 0, void 0, fu
                 };
                 return [2 /*return*/, {
                         createRoom: createRoom,
+                        getRooms: getRooms,
                         onPlayerJoin: onPlayerJoin,
                         startGame: startGame,
                         joinRoom: joinRoom,

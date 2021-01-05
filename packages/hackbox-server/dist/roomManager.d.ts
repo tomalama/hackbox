@@ -5,6 +5,7 @@ export declare class RoomManager {
     addRoom(id: any, socketId: any, maxPlayers: any): Room;
     removeRoom(id: any): Room;
     getRoom(id: any): Room;
+    getRooms(): Room[];
     addPlayer(roomId: any, player: any): boolean;
     removePlayer(roomId: any, playerId: any): void;
     getPlayers(roomId: any): Player[];

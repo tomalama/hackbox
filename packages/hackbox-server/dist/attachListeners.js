@@ -39,6 +39,10 @@ function attachListeners(io, gameReference) {
                 });
             }, gameReference[gameType].gameLength);
         });
+        socket.on('hb-getRooms', function () {
+            var rooms = roomManager.getRooms();
+            io.to(socket.id).emit('hb-roomsData', rooms);
+        });
         /**
        * Player events
        */

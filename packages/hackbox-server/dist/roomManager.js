@@ -25,6 +25,9 @@ var RoomManager = /** @class */ (function () {
     RoomManager.prototype.getRoom = function (id) {
         return this.rooms.find(function (room) { return room.id === id; });
     };
+    RoomManager.prototype.getRooms = function () {
+        return this.rooms;
+    };
     RoomManager.prototype.addPlayer = function (roomId, player) {
         var room = this.getRoom(roomId);
         if (room.players.length >= room.maxPlayers) {
