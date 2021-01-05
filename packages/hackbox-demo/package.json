@@ -40,5 +40,6 @@
   "proxy": "http://localhost:8080",
   "devDependencies": {
     "nodemon": "^1.19.0"
-  }
+  },
+  "type": "module"
 }

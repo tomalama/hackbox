@@ -1,4 +1,4 @@
-module.exports = {
+export const gameReference = {
   gameTypes: ['demo'],
   demo: {
     gameLength: 60000,

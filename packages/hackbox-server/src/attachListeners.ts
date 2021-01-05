@@ -1,10 +1,14 @@
-const { PlayerManager, RoomManager } = require('./objects');
-const { generateId } = require('./utils');
+import socketio from 'socket.io';
+
+import { generateId }  from './utils';
+import { PlayerManager } from './playerManager';
+import { RoomManager } from './roomManager';
+import { GameReference } from './model';
 
 const players = new PlayerManager();
 const roomManager = new RoomManager();
 
-function attachListeners (io, gameReference) {
+export function attachListeners (io: socketio.Server, gameReference: GameReference): void {
   io.on('connect', socket => {
     /**
      * Room events
@@ -59,7 +63,7 @@ function attachListeners (io, gameReference) {
       }
 
       const playerId = generateId();
-      const newPlayer = players.addPlayer({ id: playerId, roomId, socketId: socket.id, name: playerName });
+      const newPlayer = players.addPlayer(playerId, roomId, socket.id, playerName);
       roomManager.addPlayer(roomId, newPlayer);
 
       io.to(room.socketId).emit('hb-onPlayerJoin', room);
@@ -110,5 +114,3 @@ function attachListeners (io, gameReference) {
 
   io.on('hb-disconnect', socket => {});
 }
-
-module.exports = attachListeners;

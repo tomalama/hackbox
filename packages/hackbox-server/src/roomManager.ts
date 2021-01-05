@@ -1,29 +1,38 @@
-class RoomManager {
+import { Player, Room} from './model';
+
+export class RoomManager {
+  rooms: Room[];
+
   constructor () {
     this.rooms = [];
   }
 
-  addRoom (id, socketId, maxPlayers) {
-    const room = { id, socketId, maxPlayers, players: [] };
+  addRoom(id, socketId, maxPlayers): Room {
+    const room: Room = new Room();
+    room.id = id;
+    room.socketId = socketId;
+    room.maxPlayers = maxPlayers;
+    room.players = [];
+
     this.rooms.push(room);
     return room;
   }
 
-  removeRoom (id) {
+  removeRoom(id): Room {
     const removedRoom = this.rooms.filter(room => room.id === id)[0];
 
     if (removedRoom) {
-      this.room = this.rooms.filter(room => room.id !== id);
+      this.rooms = this.rooms.filter(room => room.id !== id);
     }
 
     return removedRoom;
   }
 
-  getRoom (id) {
+  getRoom(id): Room {
     return this.rooms.find(room => room.id === id);
   }
 
-  addPlayer (roomId, player) {
+  addPlayer(roomId, player): boolean {
     const room = this.getRoom(roomId);
 
     if (room.players.length >= room.maxPlayers) {
@@ -31,23 +40,26 @@ class RoomManager {
     }
 
     room.players.push(player);
+
+    return true;
   }
 
-  removePlayer (roomId, playerId) {
+  removePlayer(roomId, playerId) {
     const room = this.getRoom(roomId);
 
-    room.players.filter(player => player.playerId !== playerId);
+    //TODO: check if succesfully removed and return true/false
+    room?.players.filter(player => player.id !== playerId);
   }
 
-  getPlayers (roomId) {
+  getPlayers(roomId) {
     const room = this.getRoom(roomId);
     return room.players;
   }
 
-  updatePlayerStatus (roomId, playerId, playerIsReady) {
+  updatePlayerStatus(roomId, playerId, playerIsReady): boolean {
     const room = this.getRoom(roomId);
     const player = room.players.filter(
-      player => player.playerId === playerId
+      player => player.id === playerId
     )[0];
 
     if (player == null) {
@@ -55,12 +67,13 @@ class RoomManager {
     }
 
     player.isReady = playerIsReady;
+    return true;
   }
 
-  addToPlayerScore (roomId, playerId, amount) {
+  addToPlayerScore(roomId, playerId, amount): boolean {
     const room = this.getRoom(roomId);
     const player = room.players.filter(
-      player => player.playerId === playerId
+      player => player.id === playerId
     )[0];
 
     if (player == null) {
@@ -68,9 +81,10 @@ class RoomManager {
     }
 
     player.score += amount;
+    return true;
   }
 
-  allReady (roomId) {
+  allReady(roomId): boolean {
     const room = this.getRoom(roomId);
     room.players.forEach(player => {
       if (player.isReady === false) {
@@ -81,7 +95,7 @@ class RoomManager {
     return true;
   }
 
-  roomExists (id) {
+  roomExists(id): boolean {
     const found = this.rooms.find(room => room.id === id);
 
     if (found) {
@@ -91,5 +105,3 @@ class RoomManager {
     return false;
   }
 }
-
-module.exports = RoomManager;
