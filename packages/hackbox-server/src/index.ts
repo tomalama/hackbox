@@ -1,14 +1,20 @@
-import express from 'express';
-import socketio from 'socket.io';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 
-import { attachListeners } from './attachListeners';
 import { GameReference } from './model';
+import { attachListeners } from './attachListeners';
 
-export const hackbox = ({ app, port, isSecure = false }: { app: express.Express, port: string | number, isSecure: boolean }, gameReference: GameReference) => {
-  const server = require(isSecure ? 'https' : 'http').Server(app);
-  const io = socketio.listen(server);
+export const hackboxServer = (port: string | number, gameReference: GameReference) => {
+  //TODO: https implementation
+  const httpServer = createServer();
+  const io = new Server(httpServer, {
+    cors: {
+      origin: /./, //TODO: we can be more secure by only allowing particular origin. This could be passed in via hackboxServer constructor
+      credentials: true
+    }
+  });
 
   attachListeners(io, gameReference);
 
-  server.listen(port, () => console.log(`Hackbox online on port ${port}!`));
+  httpServer.listen(port, () => console.log(`Hackbox online on port ${port}!`));
 };

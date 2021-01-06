@@ -1,16 +1,19 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.hackbox = void 0;
-var socket_io_1 = __importDefault(require("socket.io"));
+exports.hackboxServer = void 0;
+var http_1 = require("http");
+var socket_io_1 = require("socket.io");
 var attachListeners_1 = require("./attachListeners");
-var hackbox = function (_a, gameReference) {
-    var app = _a.app, port = _a.port, _b = _a.isSecure, isSecure = _b === void 0 ? false : _b;
-    var server = require(isSecure ? 'https' : 'http').Server(app);
-    var io = socket_io_1.default.listen(server);
+var hackboxServer = function (port, gameReference) {
+    //TODO: https implementation
+    var httpServer = http_1.createServer();
+    var io = new socket_io_1.Server(httpServer, {
+        cors: {
+            origin: /./,
+            credentials: true
+        }
+    });
     attachListeners_1.attachListeners(io, gameReference);
-    server.listen(port, function () { return console.log("Hackbox online on port " + port + "!"); });
+    httpServer.listen(port, function () { return console.log("Hackbox online on port " + port + "!"); });
 };
-exports.hackbox = hackbox;
+exports.hackboxServer = hackboxServer;
