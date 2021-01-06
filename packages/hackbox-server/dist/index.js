@@ -4,6 +4,12 @@ exports.hackboxServer = void 0;
 var http_1 = require("http");
 var socket_io_1 = require("socket.io");
 var attachListeners_1 = require("./attachListeners");
+/**
+ * Spins up a new hackboxServer that listens on the given port.
+ *
+ * @param port the port on which this server will listen
+ * @param gameReference the logic for the games types
+ */
 var hackboxServer = function (port, gameReference) {
     //TODO: https implementation
     var httpServer = http_1.createServer();

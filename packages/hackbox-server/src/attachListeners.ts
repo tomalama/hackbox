@@ -1,4 +1,4 @@
-import socketio from 'socket.io';
+import { Server, Socket }from 'socket.io';
 
 import { generateId }  from './utils';
 import { PlayerManager } from './playerManager';
@@ -8,8 +8,14 @@ import { GameReference } from './model';
 const players = new PlayerManager();
 const roomManager = new RoomManager();
 
-export function attachListeners (io: socketio.Server, gameReference: GameReference): void {
-  io.on('connect', socket => {
+/**
+ * Attaches listeners to the socket.io Server.
+ * 
+ * @param io the socket.io Server that will 
+ * @param gameReference the logic for the games types
+ */
+export function attachListeners (io: Server, gameReference: GameReference): void {
+  io.on('connect', (socket: Socket) => {
     /**
      * Room events
      */

@@ -6,6 +6,12 @@ var playerManager_1 = require("./playerManager");
 var roomManager_1 = require("./roomManager");
 var players = new playerManager_1.PlayerManager();
 var roomManager = new roomManager_1.RoomManager();
+/**
+ * Attaches listeners to the socket.io Server.
+ *
+ * @param io the socket.io Server that will
+ * @param gameReference the logic for the games types
+ */
 function attachListeners(io, gameReference) {
     io.on('connect', function (socket) {
         /**

@@ -1,4 +1,10 @@
-import socketio from 'socket.io';
+import { Server } from 'socket.io';
 import { GameReference } from './model';
-export declare function attachListeners(io: socketio.Server, gameReference: GameReference): void;
+/**
+ * Attaches listeners to the socket.io Server.
+ *
+ * @param io the socket.io Server that will
+ * @param gameReference the logic for the games types
+ */
+export declare function attachListeners(io: Server, gameReference: GameReference): void;
 //# sourceMappingURL=attachListeners.d.ts.map

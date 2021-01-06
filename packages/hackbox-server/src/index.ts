@@ -4,6 +4,12 @@ import { Server } from 'socket.io';
 import { GameReference } from './model';
 import { attachListeners } from './attachListeners';
 
+/**
+ * Spins up a new hackboxServer that listens on the given port.
+ * 
+ * @param port the port on which this server will listen
+ * @param gameReference the logic for the games types
+ */
 export const hackboxServer = (port: string | number, gameReference: GameReference) => {
   //TODO: https implementation
   const httpServer = createServer();
