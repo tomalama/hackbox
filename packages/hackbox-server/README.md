@@ -5,26 +5,11 @@ A Jackbox inspired framework for creating party games - server component.
 ## Usage
 
 ```javascript
-const hackbox = require("hackbox-server");
-```
-
-### Using Express
-
-```javascript
-const express = require("express");
-const path = require("path");
-const hackbox = require("hackbox-server");
-const gameReference = require("./gameReference");
+import { hackboxServer } from '../../../hackbox-server/dist/index.js';
+import { gameReference } from './gameReference.js';
 
 const port = process.env.PORT || 8080;
-const app = express();
-app.use(express.static("build"));
-
-app.get("/", function(req, res) {
-  res.sendFile(path.join("build", "index.html"));
-});
-
-hackbox({ app, port }, gameReference);
+hackboxServer(port , gameReference);
 ```
 
 ### Game Reference

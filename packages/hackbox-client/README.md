@@ -4,27 +4,28 @@ A Jackbox inspired framework for creating party games - client component.
 
 ## Usage
 
-```javascript
-const hackboxClient = require("hackbox-client");
+```typescript
+import { hackboxClient } from require("hackbox-client");
 ```
 
-### Hosting
+### Create a game room
 
-```javascript
-async componentDidMount() {
-  const hackbox = await hackboxClient("http://localhost:8080");
-  const room = await hackbox.createRoom();
-  this.setState(() => ({ room }));
-
-  hackbox.onPlayerJoin(room => {
-    this.setState(() => ({ room }));
-  });
-}
+```typescript
+let room: Room = await this.hackboxClient.createRoom();
+console.log(room); //{id: "20QL9", socketId: "34DsBMVotFWdAJzXAAAl", maxPlayers: 8, players: Array(0)}
 ```
 
 ### Joining a Room
 
-```javascript
-const hackbox = await hackboxClient("http://localhost:8080");
-const playerId = await hackbox.joinRoom(roomId, name);
+```typescript
+let playerId = await hackbox.joinRoom({ roomId: roomCodeInput, playerName: nameInput });
+console.log(playerId); //9KD5R
+```
+
+### Listening to a room event
+
+```typescript
+this.hackboxClient.onPlayerJoin((updatedRoom: Room) => {
+  console.log(updatedRoom) //{id: "20QL9", socketId: "34DsBMVotFWdAJzXAAAl", maxPlayers: 8, players: Array(1)}
+});
 ```
