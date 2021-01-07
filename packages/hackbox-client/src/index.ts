@@ -1,11 +1,11 @@
-import * as io from 'socket.io-client';
+import { Socket, io }from 'socket.io-client';
 import { Room } from '../../hackbox-server/dist/model'; //TODO: import from non-local source
 
 export class hackboxClient {
-  socket: SocketIOClient.Socket;
+  socket: Socket;
 
   constructor(url: string) {
-    this.socket = io.connect(url);
+    this.socket = io(url);
   }
 
   /**

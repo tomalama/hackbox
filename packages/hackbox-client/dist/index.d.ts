@@ -1,7 +1,7 @@
-/// <reference types="socket.io-client" />
+import { Socket } from 'socket.io-client';
 import { Room } from '../../hackbox-server/dist/model';
 export declare class hackboxClient {
-    socket: SocketIOClient.Socket;
+    socket: Socket;
     constructor(url: string);
     /**
      * Room methods
