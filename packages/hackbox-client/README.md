@@ -5,13 +5,15 @@ A Jackbox inspired framework for creating party games - client component.
 ## Usage
 
 ```typescript
-import { hackboxClient } from require("hackbox-client");
+import { hackboxClient } from 'hackbox-client';
+
+const hackbox = new hackboxClient('http://localhost:8080');
 ```
 
 ### Create a game room
 
 ```typescript
-let room: Room = await this.hackboxClient.createRoom();
+let room: Room = await hackbox.createRoom();
 console.log(room); //{id: "20QL9", socketId: "34DsBMVotFWdAJzXAAAl", maxPlayers: 8, players: Array(0)}
 ```
 
@@ -25,7 +27,7 @@ console.log(playerId); //9KD5R
 ### Listening to a room event
 
 ```typescript
-this.hackboxClient.onPlayerJoin((updatedRoom: Room) => {
+hackbox.onPlayerJoin((updatedRoom: Room) => {
   console.log(updatedRoom) //{id: "20QL9", socketId: "34DsBMVotFWdAJzXAAAl", maxPlayers: 8, players: Array(1)}
 });
 ```
