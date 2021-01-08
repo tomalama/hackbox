@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import hackboxClient from 'hackbox-client';
+import { hackboxClient } from 'hackbox-client';
 
 function Host() {
   const [hackbox, setHackbox] = useState(false); 
@@ -8,7 +8,7 @@ function Host() {
 
   useEffect(() => {
     const createRoom = async () => {
-      const hackbox = await hackboxClient('http://localhost:8080');
+      const hackbox = new hackboxClient('http://localhost:8080');
       setHackbox(hackbox);
 
       const room = await hackbox.createRoom();

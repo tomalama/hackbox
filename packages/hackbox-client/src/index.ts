@@ -1,4 +1,4 @@
-import { Socket, io }from 'socket.io-client';
+import { Socket, io } from 'socket.io-client';
 import { Room } from 'hackbox-server';
 
 export class hackboxClient {

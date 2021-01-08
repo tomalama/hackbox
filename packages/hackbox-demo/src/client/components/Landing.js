@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import hackboxClient from 'hackbox-client';
+import { hackboxClient } from 'hackbox-client';
 import Boggle from './Boggle';
 
 function Landing() {
@@ -19,7 +19,7 @@ function Landing() {
   };
 
   const onClickJoin = async () => {
-    const hackbox = await hackboxClient('http://localhost:8080');
+    const hackbox = new hackboxClient('http://localhost:8080');
 
     const playerId = await hackbox.joinRoom({ roomId, playerName });
     setPlayerId(playerId);
