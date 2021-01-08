@@ -6,4 +6,5 @@ import { GameReference } from './model';
  * @param gameReference the logic for the games types
  */
 export declare const hackboxServer: (port: string | number, gameReference: GameReference) => void;
+export { Room, Player, GameReference } from './model';
 //# sourceMappingURL=index.d.ts.map

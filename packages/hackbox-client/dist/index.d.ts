@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io-client';
-import { Room } from '../../hackbox-server/dist/model';
+import { Room } from 'hackbox-server';
 export declare class hackboxClient {
     socket: Socket;
     constructor(url: string);

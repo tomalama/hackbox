@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.hackboxServer = void 0;
+exports.Player = exports.Room = exports.hackboxServer = void 0;
 var http_1 = require("http");
 var socket_io_1 = require("socket.io");
 var attachListeners_1 = require("./attachListeners");
@@ -23,3 +23,6 @@ var hackboxServer = function (port, gameReference) {
     httpServer.listen(port, function () { return console.log("Hackbox online on port " + port + "!"); });
 };
 exports.hackboxServer = hackboxServer;
+var model_1 = require("./model");
+Object.defineProperty(exports, "Room", { enumerable: true, get: function () { return model_1.Room; } });
+Object.defineProperty(exports, "Player", { enumerable: true, get: function () { return model_1.Player; } });

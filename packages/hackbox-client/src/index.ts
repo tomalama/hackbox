@@ -1,5 +1,5 @@
 import { Socket, io }from 'socket.io-client';
-import { Room } from '../../hackbox-server/dist/model'; //TODO: import from non-local source
+import { Room } from 'hackbox-server';
 
 export class hackboxClient {
   socket: Socket;

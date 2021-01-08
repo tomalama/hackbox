@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
-import { GameReference } from './model';
+import { GameReference, } from './model';
 import { attachListeners } from './attachListeners';
 
 /**
@@ -24,3 +24,5 @@ export const hackboxServer = (port: string | number, gameReference: GameReferenc
 
   httpServer.listen(port, () => console.log(`Hackbox online on port ${port}!`));
 };
+
+export { Room, Player, GameReference } from './model';
