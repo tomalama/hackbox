@@ -2,24 +2,32 @@
  * A player of a hackbox game.
  */
 export class Player {
-    constructor() { }
-    
-    id: string;
-    roomId: string;
-    socketId: string;
-    name: string;
-    isReady: boolean;
-    score: number;
+    public isReady: boolean;
+    public score: number;
+
+    constructor(
+        public id: string,
+        public socketId: string,
+        public name: string,
+    ) { 
+        this.isReady = false;
+        this.score = 0;
+    }
 }
 
 /**
- * The room where a game is hosted.
+ * A room that hosts a game.
  */
 export class Room {
-    id: string;
-    socketId: string;
-    maxPlayers: number;
     players: Player[];
+
+    constructor(
+        public id: string,
+        public socketId: string,
+        public maxPlayers: number,
+    ) {
+        this.players = [];
+    }
 }
 
 /**

@@ -1,17 +1,17 @@
 import { Player, Room } from './model';
 export declare class RoomManager {
-    rooms: Room[];
+    private rooms;
     constructor();
-    addRoom(id: any, socketId: any, maxPlayers: any): Room;
-    removeRoom(id: any): Room;
-    getRoom(id: any): Room;
+    addRoom(id: string, socketId: string, maxPlayers: number): Room;
+    removeRoom(id: string): Room;
+    getRoom(id: string): Room;
     getRooms(): Room[];
-    addPlayer(roomId: any, player: any): boolean;
-    removePlayer(roomId: any, playerId: any): void;
-    getPlayers(roomId: any): Player[];
-    updatePlayerStatus(roomId: any, playerId: any, playerIsReady: any): boolean;
-    addToPlayerScore(roomId: any, playerId: any, amount: any): boolean;
-    allReady(roomId: any): boolean;
-    roomExists(id: any): boolean;
+    addPlayer(roomId: string, player: Player): boolean;
+    removePlayer(roomId: string, playerId: string): Player;
+    getPlayers(roomId: string): Player[];
+    updatePlayerStatus(roomId: string, playerId: string, playerIsReady: boolean): boolean;
+    addToPlayerScore(roomId: string, playerId: string, amount: number): boolean;
+    allReady(roomId: string): boolean;
+    roomExists(id: string): boolean;
 }
 //# sourceMappingURL=roomManager.d.ts.map

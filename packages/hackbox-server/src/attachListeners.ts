@@ -1,11 +1,9 @@
 import { Server, Socket }from 'socket.io';
 
 import { generateId }  from './utils';
-import { PlayerManager } from './playerManager';
 import { RoomManager } from './roomManager';
-import { GameReference } from './model';
+import { GameReference, Player } from './model';
 
-const players = new PlayerManager();
 const roomManager = new RoomManager();
 
 /**
@@ -20,6 +18,7 @@ export function attachListeners (io: Server, gameReference: GameReference): void
      * Room events
      */
     socket.on('hb-createRoom', () => {
+      //TODO: replace with socket.io acknowledgement pattern?
       const id = generateId();
       socket.join(id);
       const room = roomManager.addRoom(id, socket.id, 8);
@@ -50,7 +49,7 @@ export function attachListeners (io: Server, gameReference: GameReference): void
         players.forEach(player => {
           io.to(player.socketId).emit('hb-gameOver');
         });
-      }, gameReference[gameType].gameLength);
+      }, gameReference.demo.gameLength);
     });
 
     socket.on('hb-getRooms', () => {
@@ -74,7 +73,7 @@ export function attachListeners (io: Server, gameReference: GameReference): void
       }
 
       const playerId = generateId();
-      const newPlayer = players.addPlayer(playerId, roomId, socket.id, playerName);
+      const newPlayer = new Player(playerId, socket.id, playerName);
       roomManager.addPlayer(roomId, newPlayer);
 
       io.to(room.socketId).emit('hb-onPlayerJoin', room);

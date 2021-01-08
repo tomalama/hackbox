@@ -2,9 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.attachListeners = void 0;
 var utils_1 = require("./utils");
-var playerManager_1 = require("./playerManager");
 var roomManager_1 = require("./roomManager");
-var players = new playerManager_1.PlayerManager();
+var model_1 = require("./model");
 var roomManager = new roomManager_1.RoomManager();
 /**
  * Attaches listeners to the socket.io Server.
@@ -18,6 +17,7 @@ function attachListeners(io, gameReference) {
          * Room events
          */
         socket.on('hb-createRoom', function () {
+            //TODO: replace with socket.io acknowledgement pattern?
             var id = utils_1.generateId();
             socket.join(id);
             var room = roomManager.addRoom(id, socket.id, 8);
@@ -43,7 +43,7 @@ function attachListeners(io, gameReference) {
                 players.forEach(function (player) {
                     io.to(player.socketId).emit('hb-gameOver');
                 });
-            }, gameReference[gameType].gameLength);
+            }, gameReference.demo.gameLength);
         });
         socket.on('hb-getRooms', function () {
             var rooms = roomManager.getRooms();
@@ -64,7 +64,7 @@ function attachListeners(io, gameReference) {
                 return;
             }
             var playerId = utils_1.generateId();
-            var newPlayer = players.addPlayer(playerId, roomId, socket.id, playerName);
+            var newPlayer = new model_1.Player(playerId, socket.id, playerName);
             roomManager.addPlayer(roomId, newPlayer);
             io.to(room.socketId).emit('hb-onPlayerJoin', room);
             io.to(socket.id).emit('hb-roomConnectionSuccessful', playerId);

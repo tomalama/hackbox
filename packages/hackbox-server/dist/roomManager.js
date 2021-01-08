@@ -7,22 +7,19 @@ var RoomManager = /** @class */ (function () {
         this.rooms = [];
     }
     RoomManager.prototype.addRoom = function (id, socketId, maxPlayers) {
-        var room = new model_1.Room();
-        room.id = id;
-        room.socketId = socketId;
-        room.maxPlayers = maxPlayers;
-        room.players = [];
+        var room = new model_1.Room(id, socketId, maxPlayers);
         this.rooms.push(room);
         return room;
     };
     RoomManager.prototype.removeRoom = function (id) {
-        var removedRoom = this.rooms.filter(function (room) { return room.id === id; })[0];
-        if (removedRoom) {
-            this.rooms = this.rooms.filter(function (room) { return room.id !== id; });
-        }
+        var removedRoom = this.getRoom(id);
+        this.rooms = this.rooms.filter(function (room) { return room.id !== id; });
         return removedRoom;
     };
     RoomManager.prototype.getRoom = function (id) {
+        if (!this.roomExists(id)) {
+            throw Error('Room not found.');
+        }
         return this.rooms.find(function (room) { return room.id === id; });
     };
     RoomManager.prototype.getRooms = function () {
@@ -30,20 +27,28 @@ var RoomManager = /** @class */ (function () {
     };
     RoomManager.prototype.addPlayer = function (roomId, player) {
         var room = this.getRoom(roomId);
+        if (!room) {
+            return false;
+        }
         if (room.players.length >= room.maxPlayers) {
             return false;
         }
-        room.players.push(player);
+        if (room) {
+            room.players.push(player);
+        }
         return true;
     };
     RoomManager.prototype.removePlayer = function (roomId, playerId) {
         var room = this.getRoom(roomId);
-        //TODO: check if succesfully removed and return true/false
-        room === null || room === void 0 ? void 0 : room.players.filter(function (player) { return player.id !== playerId; });
+        var removedPlayer = room.players.find(function (player) { return player.id === playerId; });
+        if (!removedPlayer) {
+            throw Error('Player not found.');
+        }
+        return removedPlayer;
     };
     RoomManager.prototype.getPlayers = function (roomId) {
         var room = this.getRoom(roomId);
-        return room.players;
+        return room === null || room === void 0 ? void 0 : room.players;
     };
     RoomManager.prototype.updatePlayerStatus = function (roomId, playerId, playerIsReady) {
         var room = this.getRoom(roomId);
@@ -56,7 +61,12 @@ var RoomManager = /** @class */ (function () {
     };
     RoomManager.prototype.addToPlayerScore = function (roomId, playerId, amount) {
         var room = this.getRoom(roomId);
-        var player = room.players.filter(function (player) { return player.id === playerId; })[0];
+        if (!room) {
+            return false;
+        }
+        var player = room.players.find(function (player) {
+            return player.id == playerId;
+        });
         if (player == null) {
             return false;
         }

@@ -1,67 +1,74 @@
 import { Player, Room} from './model';
 
 export class RoomManager {
-  rooms: Room[];
+  private rooms: Room[];
 
   constructor () {
     this.rooms = [];
   }
 
-  addRoom(id, socketId, maxPlayers): Room {
-    const room: Room = new Room();
-    room.id = id;
-    room.socketId = socketId;
-    room.maxPlayers = maxPlayers;
-    room.players = [];
+  addRoom(id: string, socketId: string , maxPlayers: number): Room {
+    const room: Room = new Room(id, socketId, maxPlayers);
 
     this.rooms.push(room);
     return room;
   }
 
-  removeRoom(id): Room {
-    const removedRoom = this.rooms.filter(room => room.id === id)[0];
-
-    if (removedRoom) {
-      this.rooms = this.rooms.filter(room => room.id !== id);
-    }
+  removeRoom(id: string): Room {
+    const removedRoom = this.getRoom(id);
+    this.rooms = this.rooms.filter(room => room.id !== id);
 
     return removedRoom;
   }
 
-  getRoom(id): Room {
-    return this.rooms.find(room => room.id === id);
+  getRoom(id: string): Room {
+    if (!this.roomExists(id)) {
+      throw Error('Room not found.');
+    }
+
+    return this.rooms.find(room => room.id === id)!;
   }
 
   getRooms(): Room[] {
     return this.rooms;
   }
 
-  addPlayer(roomId, player): boolean {
+  addPlayer(roomId: string, player: Player): boolean {
     const room = this.getRoom(roomId);
+
+    if (!room) {
+      return false;
+    }
 
     if (room.players.length >= room.maxPlayers) {
       return false;
     }
 
-    room.players.push(player);
+    if (room) {
+      room.players.push(player);
+    }
 
     return true;
   }
 
-  removePlayer(roomId, playerId) {
+  removePlayer(roomId: string, playerId: string): Player {
     const room = this.getRoom(roomId);
+    const removedPlayer = room.players.find(player => player.id === playerId);
+    if (!removedPlayer) {
+      throw Error('Player not found.');
+    }
 
-    //TODO: check if succesfully removed and return true/false
-    room?.players.filter(player => player.id !== playerId);
+    return removedPlayer;
   }
 
-  getPlayers(roomId) {
+  getPlayers(roomId: string): Player[] {
     const room = this.getRoom(roomId);
-    return room.players;
+    return room?.players;
   }
 
-  updatePlayerStatus(roomId, playerId, playerIsReady): boolean {
-    const room = this.getRoom(roomId);
+  updatePlayerStatus(roomId: string, playerId: string, playerIsReady: boolean): boolean {
+    const room = this.getRoom(roomId)!;
+
     const player = room.players.filter(
       player => player.id === playerId
     )[0];
@@ -74,11 +81,14 @@ export class RoomManager {
     return true;
   }
 
-  addToPlayerScore(roomId, playerId, amount): boolean {
+  addToPlayerScore(roomId: string, playerId: string, amount: number): boolean {
     const room = this.getRoom(roomId);
-    const player = room.players.filter(
-      player => player.id === playerId
-    )[0];
+    if (!room) {
+      return false;
+    }
+    const player = room.players.find(player => {
+      return player.id == playerId;
+    })
 
     if (player == null) {
       return false;
@@ -88,7 +98,7 @@ export class RoomManager {
     return true;
   }
 
-  allReady(roomId): boolean {
+  allReady(roomId: string): boolean {
     const room = this.getRoom(roomId);
     room.players.forEach(player => {
       if (player.isReady === false) {
@@ -99,7 +109,7 @@ export class RoomManager {
     return true;
   }
 
-  roomExists(id): boolean {
+  roomExists(id: string): boolean {
     const found = this.rooms.find(room => room.id === id);
 
     if (found) {
