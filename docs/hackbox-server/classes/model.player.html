@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Room | hackbox-server</title>
+	<title>Player | hackbox-server</title>
 	<meta name="description" content="Documentation for hackbox-server">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -58,10 +58,10 @@
 					<a href="../modules/model.html">model</a>
 				</li>
 				<li>
-					<a href="model.room.html">Room</a>
+					<a href="model.player.html">Player</a>
 				</li>
 			</ul>
-			<h1>Class Room</h1>
+			<h1>Class Player</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A room that hosts a game.</p>
+						<p>A player of a hackbox game.</p>
 					</div>
 				</div>
 			</section>
@@ -79,7 +79,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Room</span>
+						<span class="target">Player</span>
 					</li>
 				</ul>
 			</section>
@@ -90,16 +90,17 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="model.room.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="model.player.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.room.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.room.html#maxplayers" class="tsd-kind-icon">max<wbr>Players</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.room.html#players" class="tsd-kind-icon">players</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.room.html#socketid" class="tsd-kind-icon">socket<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.player.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.player.html#isready" class="tsd-kind-icon">is<wbr>Ready</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.player.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.player.html#score" class="tsd-kind-icon">score</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.player.html#socketid" class="tsd-kind-icon">socket<wbr>Id</a></li>
 							</ul>
 						</section>
 					</div>
@@ -111,13 +112,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Room<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, socketId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, maxPlayers<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="model.room.html" class="tsd-signature-type" data-tsd-kind="Class">Room</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Player<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, socketId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="model.player.html" class="tsd-signature-type" data-tsd-kind="Class">Player</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jackdaus/hackbox/blob/b76343a/packages/hackbox-server/src/model.ts#L22">model.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/jackdaus/hackbox/blob/2343be6/packages/hackbox-server/src/model.ts#L6">model.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -129,10 +130,10 @@
 									<h5>socketId: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>maxPlayers: <span class="tsd-signature-type">number</span></h5>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="model.room.html" class="tsd-signature-type" data-tsd-kind="Class">Room</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="model.player.html" class="tsd-signature-type" data-tsd-kind="Class">Player</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -147,19 +148,29 @@
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="maxplayers" class="tsd-anchor"></a>
-					<h3>max<wbr>Players</h3>
-					<div class="tsd-signature tsd-kind-icon">max<wbr>Players<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="isready" class="tsd-anchor"></a>
+					<h3>is<wbr>Ready</h3>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Ready<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jackdaus/hackbox/blob/2343be6/packages/hackbox-server/src/model.ts#L5">model.ts:5</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="players" class="tsd-anchor"></a>
-					<h3>players</h3>
-					<div class="tsd-signature tsd-kind-icon">players<span class="tsd-signature-symbol">:</span> <a href="model.player.html" class="tsd-signature-type" data-tsd-kind="Class">Player</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="score" class="tsd-anchor"></a>
+					<h3>score</h3>
+					<div class="tsd-signature tsd-kind-icon">score<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jackdaus/hackbox/blob/b76343a/packages/hackbox-server/src/model.ts#L22">model.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/jackdaus/hackbox/blob/2343be6/packages/hackbox-server/src/model.ts#L6">model.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -197,33 +208,36 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="model.player.html" class="tsd-kind-icon">Player</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-module">
-						<a href="model.room.html" class="tsd-kind-icon">Room</a>
+						<a href="model.player.html" class="tsd-kind-icon">Player</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="model.room.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="model.player.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="model.room.html#id" class="tsd-kind-icon">id</a>
+								<a href="model.player.html#id" class="tsd-kind-icon">id</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="model.room.html#maxplayers" class="tsd-kind-icon">max<wbr>Players</a>
+								<a href="model.player.html#isready" class="tsd-kind-icon">is<wbr>Ready</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="model.room.html#players" class="tsd-kind-icon">players</a>
+								<a href="model.player.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="model.room.html#socketid" class="tsd-kind-icon">socket<wbr>Id</a>
+								<a href="model.player.html#score" class="tsd-kind-icon">score</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="model.player.html#socketid" class="tsd-kind-icon">socket<wbr>Id</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="model.room.html" class="tsd-kind-icon">Room</a>
+					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/model.gamereference.html" class="tsd-kind-icon">Game<wbr>Reference</a>
 					</li>

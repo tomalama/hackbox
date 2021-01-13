@@ -34,10 +34,10 @@
     "test": "echo \"Not yet implemented\" && exit 0"
   },
   "dependencies": {
+    "hackbox-server": "0.0.3",
     "socket.io-client": "^3.0.5"
   },
   "devDependencies": {
-    "typedoc": "^0.20.13",
     "typescript": "^4.1.3"
   }
 }
