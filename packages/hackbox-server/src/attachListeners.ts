@@ -1,15 +1,24 @@
-const { PlayerManager, RoomManager } = require('./objects');
-const { generateId } = require('./utils');
+import { Server, Socket }from 'socket.io';
 
-const players = new PlayerManager();
+import { generateId }  from './utils';
+import { RoomManager } from './roomManager';
+import { GameReference, Player } from './model';
+
 const roomManager = new RoomManager();
 
-function attachListeners (io, gameReference) {
-  io.on('connect', socket => {
+/**
+ * Attaches listeners to the socket.io Server.
+ * 
+ * @param io the socket.io Server that will 
+ * @param gameReference the logic for the games types
+ */
+export function attachListeners (io: Server, gameReference: GameReference): void {
+  io.on('connect', (socket: Socket) => {
     /**
      * Room events
      */
     socket.on('hb-createRoom', () => {
+      //TODO: replace with socket.io acknowledgement pattern?
       const id = generateId();
       socket.join(id);
       const room = roomManager.addRoom(id, socket.id, 8);
@@ -40,7 +49,12 @@ function attachListeners (io, gameReference) {
         players.forEach(player => {
           io.to(player.socketId).emit('hb-gameOver');
         });
-      }, gameReference[gameType].gameLength);
+      }, gameReference.demo.gameLength);
+    });
+
+    socket.on('hb-getRooms', () => {
+      const rooms = roomManager.getRooms();
+      io.to(socket.id).emit('hb-roomsData', rooms);
     });
 
     /**
@@ -59,7 +73,7 @@ function attachListeners (io, gameReference) {
       }
 
       const playerId = generateId();
-      const newPlayer = players.addPlayer({ id: playerId, roomId, socketId: socket.id, name: playerName });
+      const newPlayer = new Player(playerId, socket.id, playerName);
       roomManager.addPlayer(roomId, newPlayer);
 
       io.to(room.socketId).emit('hb-onPlayerJoin', room);
@@ -110,5 +124,3 @@ function attachListeners (io, gameReference) {
 
   io.on('hb-disconnect', socket => {});
 }
-
-module.exports = attachListeners;
